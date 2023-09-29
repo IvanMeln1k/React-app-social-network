@@ -1,19 +1,26 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import s from "./App.module.scss";
 import { Header } from "./components/Header/Header";
 import { Navbar } from "./components/Navbar/Navbar";
 import { Profile } from "./components/Profile/Profile";
+import { Dialogs } from "./components/Dialogs/Dialogs";
 
 const App = () => {
   return (
-    <div className={s.app}>
-      <div className={s.wrapper}>
-        <Header />
-        <Navbar />
-        <div className={s.contentblock}>
-          <Profile />
+    <BrowserRouter>
+      <div className={s.app}>
+        <div className={s.wrapper}>
+          <Header />
+          <Navbar />
+          <div className={s.contentblock}>
+            <Routes>
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/dialogs/*" element={<Dialogs />} />
+            </Routes>
+          </div>
         </div>
       </div>
-    </div>
+    </BrowserRouter>
   );
 };
 

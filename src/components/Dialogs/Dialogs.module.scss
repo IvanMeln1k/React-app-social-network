@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.chats {
+  flex: 0 0 20%;
+  flex-direction: column;
+  gap: 10px;
+  display: flex;
+}
+
+.messages {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.link {
+  color: white;
+  font-size: 20px;
+
+  &_active {
+    color: rgb(92, 92, 92);
+  }
+}

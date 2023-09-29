@@ -5,10 +5,10 @@ import s from "./Posts.module.scss";
 export const Posts = () => {
   return (
     <div className={s.posts}>
-      <Post />
-      <Post />
-      <Post />
-      <Post />
+      <Post text="yo" />
+      <Post text="hello world!" />
+      <Post text="yo yo yo" />
+      <Post text="sometext" />
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import s from "./Post.module.scss";
 
-export const Post = () => {
+export const Post = (props) => {
   return (
     <div className={s.wrapper}>
       <div className={s.header}>
@@ -18,11 +18,7 @@ export const Post = () => {
         </div>
       </div>
       <div className={s.content}>
-        <div>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure aliquid
-          consectetur non sunt repellendus accusamus voluptates saepe nostrum
-          voluptas similique!
-        </div>
+        <div>{props.text}</div>
         <div>
           <button>Like</button>
         </div>
