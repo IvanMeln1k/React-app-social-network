@@ -1,0 +1,25 @@
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+
+  display: grid;
+  grid-template-areas: "header header" "navbar content";
+  grid-template-columns: 1fr 4fr;
+  gap: 10px;
+  align-items: start;
+
+  & > * {
+    padding: 15px;
+    background-color: rgb(177, 202, 207);
+    border-radius: 7px;
+  }
+}
+
+.app {
+  padding: 15px 0;
+}
+
+.contentblock {
+  grid-area: content;
+}
