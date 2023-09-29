@@ -16,18 +16,20 @@ const Link = (props) => {
 };
 
 export const Navbar = () => {
+  const links = [
+    { name: "Profile", path: "/profile" },
+    { name: "Dialogs", path: "/dialogs" },
+    { name: "Users", path: "/users" },
+  ];
+
   return (
     <div>
       <ul className={s.list}>
-        <li>
-          <Link name="Profile" path="/profile" />
-        </li>
-        <li>
-          <Link name="Dialogs" path="/dialogs" />
-        </li>
-        <li>
-          <Link name="Users" path="/users" />
-        </li>
+        {links.map((item) => (
+          <li>
+            <Link name={item.name} path={item.path} />
+          </li>
+        ))}
       </ul>
     </div>
   );
