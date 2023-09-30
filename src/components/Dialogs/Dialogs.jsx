@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import {
   addMessageActionCreator,
   changeNewMessageBodyActionCreator,
-} from "../../redux/state";
+} from "../../redux/dialogs-reducer";
 
 const Chat = (props) => {
   return (

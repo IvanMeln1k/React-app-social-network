@@ -4,7 +4,7 @@ import s from "./Posts.module.scss";
 import {
   addPostActionCreator,
   changeNewPostTextActionCreator,
-} from "../../../redux/state";
+} from "../../../redux/profile-reducer";
 
 export const Posts = (props) => {
   const newPostTextRef = React.createRef();

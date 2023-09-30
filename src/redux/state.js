@@ -1,3 +1,6 @@
+import dialogsReducer from "./dialogs-reducer";
+import profileReducer from "./profile-reducer";
+
 let store = {
   _state: {
     profilePage: {
@@ -36,50 +39,11 @@ let store = {
   },
 
   dispatch(action) {
-    switch (action.type) {
-      case ADD_POST:
-        this._state.profilePage.posts.push({
-          id: 5,
-          text: this._state.profilePage.newPostText,
-        });
-        break;
-      case CHANGE_NEW_POST_TEXT:
-        this._state.profilePage.newPostText = action.text;
-        break;
-      case ADD_MESSAGE:
-        this._state.dialogsPage.messages.push({
-          id: 4,
-          message: this._state.dialogsPage.newMessageBody,
-        });
-        break;
-      case CHANGE_NEW_MESSAGE_BODY:
-        this._state.dialogsPage.newMessageBody = action.body;
-        break;
-      default:
-    }
+    this._state.profilePage = profileReducer(this._state.profilePage, action);
+    this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+
     this._subscriber(this._state);
   },
 };
-
-const ADD_MESSAGE = "ADD_MESSAGE";
-const CHANGE_NEW_MESSAGE_BODY = "CHANGE_NEW_MESSAGE_BODY";
-const ADD_POST = "ADD_POST";
-const CHANGE_NEW_POST_TEXT = "CHANGE_NEW_POST_TEXT";
-
-export const addMessageActionCreator = () => ({
-  type: ADD_MESSAGE,
-});
-export const changeNewMessageBodyActionCreator = (body) => ({
-  type: CHANGE_NEW_MESSAGE_BODY,
-  body: body,
-});
-
-export const addPostActionCreator = () => ({
-  type: ADD_POST,
-});
-export const changeNewPostTextActionCreator = (text) => ({
-  type: CHANGE_NEW_POST_TEXT,
-  text: text,
-});
 
 export default store;
