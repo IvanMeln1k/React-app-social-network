@@ -23,12 +23,12 @@ export const Dialogs = (props) => {
       <h2>Dialogs</h2>
       <div className={s.container}>
         <div className={s.chats}>
-          {props.chats.map((item) => (
+          {props.state.chats.map((item) => (
             <Chat name={item.name} id={item.id} />
           ))}
         </div>
         <div className={s.messages}>
-          {props.messages.map((item) => (
+          {props.state.messages.map((item) => (
             <div>{item.message}</div>
           ))}
         </div>
