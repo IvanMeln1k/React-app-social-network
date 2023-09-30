@@ -22,6 +22,7 @@ let store = {
         { id: 2, message: "How are you?" },
         { id: 3, message: "Norm" },
       ],
+      newMessageBody: "Some text",
     },
   },
   _subscriber() {
@@ -41,19 +42,37 @@ let store = {
           id: 5,
           text: this._state.profilePage.newPostText,
         });
-        this._subscriber(this._state);
         break;
       case CHANGE_NEW_POST_TEXT:
         this._state.profilePage.newPostText = action.text;
-        this._subscriber(this._state);
+        break;
+      case ADD_MESSAGE:
+        this._state.dialogsPage.messages.push({
+          id: 4,
+          message: this._state.dialogsPage.newMessageBody,
+        });
+        break;
+      case CHANGE_NEW_MESSAGE_BODY:
+        this._state.dialogsPage.newMessageBody = action.body;
         break;
       default:
     }
+    this._subscriber(this._state);
   },
 };
 
+const ADD_MESSAGE = "ADD_MESSAGE";
+const CHANGE_NEW_MESSAGE_BODY = "CHANGE_NEW_MESSAGE_BODY";
 const ADD_POST = "ADD_POST";
 const CHANGE_NEW_POST_TEXT = "CHANGE_NEW_POST_TEXT";
+
+export const addMessageActionCreator = () => ({
+  type: ADD_MESSAGE,
+});
+export const changeNewMessageBodyActionCreator = (body) => ({
+  type: CHANGE_NEW_MESSAGE_BODY,
+  body: body,
+});
 
 export const addPostActionCreator = () => ({
   type: ADD_POST,

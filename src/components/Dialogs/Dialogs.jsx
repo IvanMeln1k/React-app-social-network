@@ -1,6 +1,10 @@
 import React from "react";
 import s from "./Dialogs.module.scss";
 import { NavLink } from "react-router-dom";
+import {
+  addMessageActionCreator,
+  changeNewMessageBodyActionCreator,
+} from "../../redux/state";
 
 const Chat = (props) => {
   return (
@@ -18,6 +22,14 @@ const Chat = (props) => {
 };
 
 export const Dialogs = (props) => {
+  const onChange = (e) => {
+    props.dispatch(changeNewMessageBodyActionCreator(e.target.value));
+  };
+  const sendMessage = () => {
+    props.dispatch(addMessageActionCreator());
+    props.dispatch(changeNewMessageBodyActionCreator(""));
+  };
+
   return (
     <div>
       <h2>Dialogs</h2>
@@ -27,10 +39,23 @@ export const Dialogs = (props) => {
             <Chat name={item.name} id={item.id} />
           ))}
         </div>
-        <div className={s.messages}>
-          {props.state.messages.map((item) => (
-            <div>{item.message}</div>
-          ))}
+        <div className={s.messagescol}>
+          <div className={s.messages}>
+            {props.state.messages.map((item) => (
+              <div>{item.message}</div>
+            ))}
+          </div>
+          <div className={s.form}>
+            <div className={s.form__field}>
+              <textarea
+                onChange={onChange}
+                value={props.state.newMessageBody}
+              ></textarea>
+            </div>
+            <div className={s.form__button}>
+              <button onClick={sendMessage}>send message</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
