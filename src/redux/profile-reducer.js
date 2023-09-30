@@ -1,7 +1,17 @@
 const ADD_POST = "ADD_POST";
 const CHANGE_NEW_POST_TEXT = "CHANGE_NEW_POST_TEXT";
 
-const profileReducer = (state, action) => {
+const initialState = {
+  posts: [
+    { id: 1, text: "yo" },
+    { id: 2, text: "hello world!" },
+    { id: 3, text: "yo yo yo" },
+    { id: 4, text: "sometext" },
+  ],
+  newPostText: "new post text",
+};
+
+const profileReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_POST:
       state.posts.push({
