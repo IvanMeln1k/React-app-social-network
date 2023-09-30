@@ -36,14 +36,14 @@ let store = {
 
   dispatch(action) {
     switch (action.type) {
-      case "ADD_POST":
+      case ADD_POST:
         this._state.profilePage.posts.push({
           id: 5,
           text: this._state.profilePage.newPostText,
         });
         this._subscriber(this._state);
         break;
-      case "CHANGE_NEW_POST_TEXT":
+      case CHANGE_NEW_POST_TEXT:
         this._state.profilePage.newPostText = action.text;
         this._subscriber(this._state);
         break;
@@ -51,5 +51,16 @@ let store = {
     }
   },
 };
+
+const ADD_POST = "ADD_POST";
+const CHANGE_NEW_POST_TEXT = "CHANGE_NEW_POST_TEXT";
+
+export const addPostActionCreator = () => ({
+  type: ADD_POST,
+});
+export const changeNewPostTextActionCreator = (text) => ({
+  type: CHANGE_NEW_POST_TEXT,
+  text: text,
+});
 
 export default store;

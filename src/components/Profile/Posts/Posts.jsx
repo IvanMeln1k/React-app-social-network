@@ -1,20 +1,23 @@
 import React from "react";
 import { Post } from "./Post/Post";
 import s from "./Posts.module.scss";
+import {
+  addPostActionCreator,
+  changeNewPostTextActionCreator,
+} from "../../../redux/state";
 
 export const Posts = (props) => {
   const newPostTextRef = React.createRef();
 
   const addPost = () => {
-    props.dispatch({ type: "ADD_POST" });
-    props.dispatch({ type: "CHANGE_NEW_POST_TEXT", text: "" });
+    props.dispatch(addPostActionCreator());
+    props.dispatch(changeNewPostTextActionCreator(""));
   };
 
   const onChange = () => {
-    props.dispatch({
-      type: "CHANGE_NEW_POST_TEXT",
-      text: newPostTextRef.current.value,
-    });
+    props.dispatch(
+      changeNewPostTextActionCreator(newPostTextRef.current.value)
+    );
   };
 
   return (
