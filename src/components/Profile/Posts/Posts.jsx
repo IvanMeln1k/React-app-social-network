@@ -3,7 +3,6 @@ import { Post } from "./Post/Post";
 import s from "./Posts.module.scss";
 
 export const Posts = (props) => {
-  console.log(props.newPostTextRef);
   const newPostTextRef = React.createRef();
 
   const addPost = () => {
