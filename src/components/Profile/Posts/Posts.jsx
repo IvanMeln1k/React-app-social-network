@@ -6,12 +6,15 @@ export const Posts = (props) => {
   const newPostTextRef = React.createRef();
 
   const addPost = () => {
-    props.addPost(newPostTextRef.current.value);
-    props.changeNewPostText("");
+    props.dispatch({ type: "ADD_POST" });
+    props.dispatch({ type: "CHANGE_NEW_POST_TEXT", text: "" });
   };
 
   const onChange = () => {
-    props.changeNewPostText(newPostTextRef.current.value);
+    props.dispatch({
+      type: "CHANGE_NEW_POST_TEXT",
+      text: newPostTextRef.current.value,
+    });
   };
 
   return (

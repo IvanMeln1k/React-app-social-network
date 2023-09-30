@@ -9,18 +9,12 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 let renderEntireTree = (state) => {
   root.render(
     <React.StrictMode>
-      <App
-        state={state}
-        addPost={store.addPost.bind(store)}
-        changeNewPostText={store.changeNewPostText.bind(store)}
-      />
+      <App state={state} dispatch={store.dispatch.bind(store)} />
     </React.StrictMode>
   );
 };
 
 store.subscribe(renderEntireTree);
-export default renderEntireTree;
-
 renderEntireTree(store.getState());
 
 // If you want to start measuring performance in your app, pass a function
