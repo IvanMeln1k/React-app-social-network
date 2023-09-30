@@ -5,7 +5,7 @@ import { Navbar } from "./components/Navbar/Navbar";
 import { Profile } from "./components/Profile/Profile";
 import { Dialogs } from "./components/Dialogs/Dialogs";
 
-const App = () => {
+const App = (props) => {
   return (
     <BrowserRouter>
       <div className={s.app}>
@@ -14,8 +14,16 @@ const App = () => {
           <Navbar />
           <div className={s.contentblock}>
             <Routes>
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/dialogs/*" element={<Dialogs />} />
+              <Route
+                path="/profile"
+                element={<Profile posts={props.posts} />}
+              />
+              <Route
+                path="/dialogs/*"
+                element={
+                  <Dialogs messages={props.messages} chats={props.chats} />
+                }
+              />
             </Routes>
           </div>
         </div>
