@@ -6,16 +6,16 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-let renderEntireTree = (state) => {
+let renderEntireTree = () => {
   root.render(
     <React.StrictMode>
-      <App state={state} dispatch={store.dispatch.bind(store)} />
+      <App store={store} />
     </React.StrictMode>
   );
 };
 
-store.subscribe(() => renderEntireTree(store.getState()));
-renderEntireTree(store.getState());
+store.subscribe(renderEntireTree);
+renderEntireTree();
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

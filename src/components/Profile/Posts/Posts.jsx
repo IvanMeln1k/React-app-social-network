@@ -1,23 +1,16 @@
 import React from "react";
-import { Post } from "./Post/Post";
+import Post from "./Post/Post";
 import s from "./Posts.module.scss";
-import {
-  addPostActionCreator,
-  changeNewPostTextActionCreator,
-} from "../../../redux/profile-reducer";
 
-export const Posts = (props) => {
+const Posts = (props) => {
   const newPostTextRef = React.createRef();
 
   const addPost = () => {
-    props.dispatch(addPostActionCreator());
-    props.dispatch(changeNewPostTextActionCreator(""));
+    props.addPost();
   };
 
   const onChange = () => {
-    props.dispatch(
-      changeNewPostTextActionCreator(newPostTextRef.current.value)
-    );
+    props.onChange(newPostTextRef.current.value);
   };
 
   return (
@@ -38,3 +31,5 @@ export const Posts = (props) => {
     </div>
   );
 };
+
+export default Posts;

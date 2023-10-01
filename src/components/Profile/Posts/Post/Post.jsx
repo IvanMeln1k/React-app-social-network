@@ -1,7 +1,7 @@
 import React from "react";
 import s from "./Post.module.scss";
 
-export const Post = (props) => {
+const Post = (props) => {
   return (
     <div className={s.wrapper}>
       <div className={s.header}>
@@ -26,3 +26,5 @@ export const Post = (props) => {
     </div>
   );
 };
+
+export default Post;

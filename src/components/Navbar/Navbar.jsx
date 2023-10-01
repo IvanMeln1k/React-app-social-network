@@ -15,7 +15,7 @@ const Link = (props) => {
   );
 };
 
-export const Navbar = () => {
+const Navbar = () => {
   const links = [
     { name: "Profile", path: "/profile" },
     { name: "Dialogs", path: "/dialogs" },
@@ -34,3 +34,5 @@ export const Navbar = () => {
     </div>
   );
 };
+
+export default Navbar;

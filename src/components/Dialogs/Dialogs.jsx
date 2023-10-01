@@ -1,10 +1,6 @@
 import React from "react";
 import s from "./Dialogs.module.scss";
 import { NavLink } from "react-router-dom";
-import {
-  addMessageActionCreator,
-  changeNewMessageBodyActionCreator,
-} from "../../redux/dialogs-reducer";
 
 const Chat = (props) => {
   return (
@@ -21,13 +17,12 @@ const Chat = (props) => {
   );
 };
 
-export const Dialogs = (props) => {
+const Dialogs = (props) => {
   const onChange = (e) => {
-    props.dispatch(changeNewMessageBodyActionCreator(e.target.value));
+    props.onChange(e.target.value);
   };
   const sendMessage = () => {
-    props.dispatch(addMessageActionCreator());
-    props.dispatch(changeNewMessageBodyActionCreator(""));
+    props.sendMessage();
   };
 
   return (
@@ -35,13 +30,13 @@ export const Dialogs = (props) => {
       <h2>Dialogs</h2>
       <div className={s.container}>
         <div className={s.chats}>
-          {props.state.chats.map((item) => (
+          {props.chats.map((item) => (
             <Chat name={item.name} id={item.id} />
           ))}
         </div>
         <div className={s.messagescol}>
           <div className={s.messages}>
-            {props.state.messages.map((item) => (
+            {props.messages.map((item) => (
               <div>{item.message}</div>
             ))}
           </div>
@@ -49,7 +44,7 @@ export const Dialogs = (props) => {
             <div className={s.form__field}>
               <textarea
                 onChange={onChange}
-                value={props.state.newMessageBody}
+                value={props.newMessageBody}
               ></textarea>
             </div>
             <div className={s.form__button}>
@@ -61,3 +56,5 @@ export const Dialogs = (props) => {
     </div>
   );
 };
+
+export default Dialogs;
