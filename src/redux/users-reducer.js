@@ -2,21 +2,27 @@ const initialState = {
   users: [
     {
       id: 1,
+      avatar:
+        "https://i.pinimg.com/1200x/2e/2e/21/2e2e2125ee53807c2d77b34773f84b5c.jpg",
       name: "Ivan",
       surname: "Melnik",
-      follow: true,
+      isFollowed: true,
     },
     {
       id: 2,
+      avatar:
+        "https://i.pinimg.com/1200x/2e/2e/21/2e2e2125ee53807c2d77b34773f84b5c.jpg",
       name: "Marat",
       surname: "Ubaidatov",
-      follow: true,
+      isFollowed: true,
     },
     {
       id: 3,
+      avatar:
+        "https://i.pinimg.com/1200x/2e/2e/21/2e2e2125ee53807c2d77b34773f84b5c.jpg",
       name: "Alex",
       surname: "Some",
-      follow: false,
+      isFollowed: false,
     },
   ],
 };
@@ -39,7 +45,7 @@ const usersReducer = (state = initialState, action) => {
           if (user.id == action.id) {
             return {
               ...user,
-              follow: true,
+              isFollowed: true,
             };
           }
           return user;
@@ -52,10 +58,10 @@ const usersReducer = (state = initialState, action) => {
           if (user.id == action.id) {
             return {
               ...user,
-              follow: false,
+              isFollowed: false,
             };
-            return user;
           }
+          return user;
         }),
       };
     default:
