@@ -9,6 +9,7 @@ import {
   setPage,
   setPagePage,
 } from "../../redux/users-reducer";
+import axios from "axios";
 
 const mapStateToProps = (state) => {
   return {
@@ -21,13 +22,57 @@ const mapStateToProps = (state) => {
   };
 };
 
-const UsersContainer = connect(mapStateToProps, {
+class UsersContainer extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    axios
+      .get(
+        `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.count}&page=${this.props.page}`
+      )
+      .then((response) => {
+        this.props.setUsers(response.data.items);
+        this.props.setTotalCount(response.data.totalCount);
+      });
+  }
+
+  onChagePage = (page) => {
+    axios
+      .get(
+        `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.count}&page=${page}`
+      )
+      .then((response) => {
+        this.props.setUsers(response.data.items);
+        this.props.setTotalCount(response.data.totalCount);
+        this.props.setPage(page);
+      });
+  };
+
+  render() {
+    return (
+      <Users
+        onChagePage={this.onChagePage}
+        follow={this.props.follow}
+        unfollow={this.props.unfollow}
+        setPagePage={this.props.setPagePage}
+        totalCount={this.props.totalCount}
+        count={this.props.count}
+        pageCount={this.props.pageCount}
+        pagePage={this.props.pagePage}
+        users={this.props.users}
+        page={this.props.page}
+      />
+    );
+  }
+}
+
+export default connect(mapStateToProps, {
   follow,
   unfollow,
   setUsers,
   setTotalCount,
   setPage,
   setPagePage,
-})(Users);
-
-export default UsersContainer;
+})(UsersContainer);

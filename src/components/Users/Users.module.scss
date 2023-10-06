@@ -28,8 +28,11 @@
   }
 
   &__page {
-    width: 30px;
+    width: 50px;
     border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &_active {
       background-color: rgb(126, 179, 179);
