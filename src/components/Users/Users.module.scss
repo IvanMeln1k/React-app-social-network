@@ -7,7 +7,34 @@
 .users {
   display: flex;
   flex-direction: column;
+  gap: 25px;
+}
+
+.pagination {
+  margin-bottom: 20px;
+  display: flex;
   gap: 15px;
+  height: 30px;
+  align-items: stretch;
+
+  &__pages {
+    display: flex;
+    gap: 10px;
+  }
+
+  &__button {
+    padding: 0 15px;
+    border-radius: 5px;
+  }
+
+  &__page {
+    width: 30px;
+    border-radius: 5px;
+
+    &_active {
+      background-color: rgb(126, 179, 179);
+    }
+  }
 }
 
 .user {
@@ -35,7 +62,7 @@
   &__right {
     display: flex;
     flex-direction: column;
-    gap: 10x;
+    gap: 5px;
   }
 
   &__name {
