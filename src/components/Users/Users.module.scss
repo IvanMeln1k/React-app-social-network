@@ -32,9 +32,20 @@
     }
   }
 
+  &__right {
+    display: flex;
+    flex-direction: column;
+    gap: 10x;
+  }
+
   &__name {
     color: white;
-    transform: translateY(10px);
+    font-size: 18px;
+  }
+
+  &__status {
+    color: white;
+    font-style: italic;
   }
 
   &__button {

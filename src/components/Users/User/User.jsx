@@ -1,5 +1,6 @@
 import React from "react";
 import s from "../Users.module.scss";
+import avatar from "../../../assets/images/avatar.jpg";
 
 const User = (props) => {
   const onClickFollow = () => {
@@ -14,10 +15,13 @@ const User = (props) => {
     <div className={s.user}>
       <div className={s.user__info}>
         <div className={s.user__ava}>
-          <img src={props.user.avatar} alt="" />
+          <img src={props.user.photos.small || avatar} alt="" />
         </div>
-        <div className={s.user__name}>
-          {props.user.name + " " + props.user.surname}
+        <div className={s.user__right}>
+          <div className={s.user__name}>{props.user.name}</div>
+          <div className={s.user__status}>
+            {props.user.status || "нет статуса"}
+          </div>
         </div>
       </div>
       {props.user.isFollowed ? (
