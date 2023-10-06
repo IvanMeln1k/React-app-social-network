@@ -5,8 +5,10 @@ const initialState = {
   count: 5,
   pagePage: 1,
   pageCount: 5,
+  isFetching: false,
 };
 
+const SET_IS_FETCHING = "SET_IF_FETCHING";
 const SET_USERS = "SET_USERS";
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
@@ -18,6 +20,11 @@ const SET_PAGE_COUNT = "SET_PAGE_COUNT";
 
 const usersReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SET_IS_FETCHING:
+      return {
+        ...state,
+        isFetching: action.isFetching,
+      };
     case SET_PAGE_COUNT:
       return {
         ...state,
@@ -85,6 +92,12 @@ const usersReducer = (state = initialState, action) => {
 
 export default usersReducer;
 
+export const setIsFetching = (isFetching) => {
+  return {
+    type: SET_IS_FETCHING,
+    isFetching,
+  };
+};
 export const setPageCount = (pageCount) => {
   return {
     type: SET_PAGE_COUNT,

@@ -8,19 +8,9 @@ import {
   setTotalCount,
   setPage,
   setPagePage,
+  setIsFetching,
 } from "../../redux/users-reducer";
 import axios from "axios";
-
-const mapStateToProps = (state) => {
-  return {
-    users: state.usersPage.users,
-    totalCount: state.usersPage.totalCount,
-    page: state.usersPage.page,
-    count: state.usersPage.count,
-    pagePage: state.usersPage.pagePage,
-    pageCount: state.usersPage.pageCount,
-  };
-};
 
 class UsersContainer extends React.Component {
   constructor(props) {
@@ -28,6 +18,7 @@ class UsersContainer extends React.Component {
   }
 
   componentDidMount() {
+    this.props.setIsFetching(true);
     axios
       .get(
         `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.count}&page=${this.props.page}`
@@ -35,10 +26,12 @@ class UsersContainer extends React.Component {
       .then((response) => {
         this.props.setUsers(response.data.items);
         this.props.setTotalCount(response.data.totalCount);
+        this.props.setIsFetching(false);
       });
   }
 
   onChagePage = (page) => {
+    this.props.setIsFetching(true);
     axios
       .get(
         `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.count}&page=${page}`
@@ -47,6 +40,7 @@ class UsersContainer extends React.Component {
         this.props.setUsers(response.data.items);
         this.props.setTotalCount(response.data.totalCount);
         this.props.setPage(page);
+        this.props.setIsFetching(false);
       });
   };
 
@@ -63,10 +57,23 @@ class UsersContainer extends React.Component {
         pagePage={this.props.pagePage}
         users={this.props.users}
         page={this.props.page}
+        isFetching={this.props.isFetching}
       />
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    users: state.usersPage.users,
+    totalCount: state.usersPage.totalCount,
+    page: state.usersPage.page,
+    count: state.usersPage.count,
+    pagePage: state.usersPage.pagePage,
+    pageCount: state.usersPage.pageCount,
+    isFetching: state.usersPage.isFetching,
+  };
+};
 
 export default connect(mapStateToProps, {
   follow,
@@ -75,4 +82,5 @@ export default connect(mapStateToProps, {
   setTotalCount,
   setPage,
   setPagePage,
+  setIsFetching,
 })(UsersContainer);

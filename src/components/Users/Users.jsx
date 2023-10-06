@@ -1,6 +1,7 @@
 import React from "react";
 import User from "./User/User";
 import s from "./Users.module.scss";
+import preloader from "../../assets/gifs/preloader.gif";
 
 const Users = (props) => {
   const totalPageCount = Math.ceil(props.totalCount / props.count);
@@ -46,11 +47,15 @@ const Users = (props) => {
           Next
         </button>
       </div>
-      <div className={s.users}>
-        {props.users.map((user) => (
-          <User follow={props.follow} unfollow={props.unfollow} user={user} />
-        ))}
-      </div>
+      {props.isFetching ? (
+        <img src={preloader} />
+      ) : (
+        <div className={s.users}>
+          {props.users.map((user) => (
+            <User follow={props.follow} unfollow={props.unfollow} user={user} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
