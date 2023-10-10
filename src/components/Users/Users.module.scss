@@ -28,7 +28,7 @@
   }
 
   &__page {
-    width: 50px;
+    min-width: 50px;
     border-radius: 5px;
     display: flex;
     align-items: center;
@@ -68,7 +68,7 @@
     gap: 5px;
   }
 
-  &__name {
+  &__name a {
     color: white;
     font-size: 18px;
   }

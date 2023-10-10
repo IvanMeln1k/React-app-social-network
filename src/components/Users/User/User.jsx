@@ -1,6 +1,7 @@
 import React from "react";
 import s from "../Users.module.scss";
 import avatar from "../../../assets/images/avatar.jpg";
+import { NavLink } from "react-router-dom";
 
 const User = (props) => {
   const onClickFollow = () => {
@@ -15,10 +16,16 @@ const User = (props) => {
     <div className={s.user}>
       <div className={s.user__info}>
         <div className={s.user__ava}>
-          <img src={props.user.photos.small || avatar} alt="" />
+          <NavLink to={`/profile/${props.user.id}`}>
+            <img src={props.user.photos.small || avatar} alt="" />
+          </NavLink>
         </div>
         <div className={s.user__right}>
-          <div className={s.user__name}>{props.user.name}</div>
+          <div className={s.user__name}>
+            <NavLink to={`/profile/${props.user.id}`}>
+              {props.user.name}
+            </NavLink>
+          </div>
           <div className={s.user__status}>
             {props.user.status || "нет статуса"}
           </div>

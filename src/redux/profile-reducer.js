@@ -1,45 +1,40 @@
-const ADD_POST = "ADD_POST";
-const CHANGE_NEW_POST_TEXT = "CHANGE_NEW_POST_TEXT";
-
 const initialState = {
-  posts: [
-    { id: 1, text: "yo" },
-    { id: 2, text: "hello world!" },
-    { id: 3, text: "yo yo yo" },
-    { id: 4, text: "sometext" },
-  ],
-  newPostText: "new post text",
+  isFetching: false,
+  profile: null,
+  id: null,
 };
+
+const SET_PROFILE = "SET_PROFILE";
+const SET_IS_FETCHING = "SET_IS_FETCHING";
 
 const profileReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_POST:
+    case SET_PROFILE:
       return {
         ...state,
-        posts: [
-          ...state.posts,
-          {
-            id: 5,
-            text: state.newPostText,
-          },
-        ],
+        profile: action.profile,
       };
-    case CHANGE_NEW_POST_TEXT:
+    case SET_IS_FETCHING:
       return {
         ...state,
-        newPostText: action.text,
+        isFetching: action.isFetching,
       };
     default:
       return state;
   }
 };
 
-export const addPostActionCreator = () => ({
-  type: ADD_POST,
-});
-export const changeNewPostTextActionCreator = (text) => ({
-  type: CHANGE_NEW_POST_TEXT,
-  text: text,
-});
+export const setProfile = (profile) => {
+  return {
+    type: SET_PROFILE,
+    profile,
+  };
+};
+export const setIsFetching = (isFetching) => {
+  return {
+    type: SET_IS_FETCHING,
+    isFetching,
+  };
+};
 
 export default profileReducer;
