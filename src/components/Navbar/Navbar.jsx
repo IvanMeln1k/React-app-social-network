@@ -15,9 +15,9 @@ const Link = (props) => {
   );
 };
 
-const Navbar = () => {
+const Navbar = (props) => {
   const links = [
-    { name: "Profile", path: "/profile/2" },
+    { name: "Profile", path: `/profile/${props.userData.id || 2}` },
     { name: "Dialogs", path: "/dialogs" },
     { name: "Users", path: "/users" },
   ];

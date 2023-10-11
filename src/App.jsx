@@ -5,13 +5,14 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import NavbarContainer from "./components/Navbar/NavbarContainer";
 
 const App = (props) => {
   return (
     <div className={s.app}>
       <div className={s.wrapper}>
         <HeaderContainer />
-        <Navbar />
+        <NavbarContainer />
         <div className={s.contentblock}>
           <Routes>
             <Route path="/profile/:id?" element={<ProfileContainer />} />
