@@ -52,7 +52,14 @@ const Users = (props) => {
       ) : (
         <div className={s.users}>
           {props.users.map((user) => (
-            <User follow={props.follow} unfollow={props.unfollow} user={user} />
+            <User
+              addInProcess={props.addInProcess}
+              deleteInProcess={props.deleteInProcess}
+              inProcess={props.inProcess}
+              follow={props.follow}
+              unfollow={props.unfollow}
+              user={user}
+            />
           ))}
         </div>
       )}

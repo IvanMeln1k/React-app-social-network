@@ -9,6 +9,8 @@ import {
   setPage,
   setPagePage,
   setIsFetching,
+  addInProcess,
+  deleteInProcess,
 } from "../../redux/users-reducer";
 import { usersAPI } from "../../api/api";
 
@@ -50,6 +52,9 @@ class UsersContainer extends React.Component {
         users={this.props.users}
         page={this.props.page}
         isFetching={this.props.isFetching}
+        inProcess={this.props.inProcess}
+        addInProcess={this.props.addInProcess}
+        deleteInProcess={this.props.deleteInProcess}
       />
     );
   }
@@ -64,6 +69,7 @@ const mapStateToProps = (state) => {
     pagePage: state.usersPage.pagePage,
     pageCount: state.usersPage.pageCount,
     isFetching: state.usersPage.isFetching,
+    inProcess: state.usersPage.inProcess,
   };
 };
 
@@ -75,4 +81,6 @@ export default connect(mapStateToProps, {
   setPage,
   setPagePage,
   setIsFetching,
+  addInProcess,
+  deleteInProcess,
 })(UsersContainer);

@@ -6,6 +6,7 @@ const initialState = {
   pagePage: 1,
   pageCount: 5,
   isFetching: false,
+  inProcess: [],
 };
 
 const SET_IS_FETCHING = "SET_IF_FETCHING";
@@ -17,9 +18,21 @@ const SET_PAGE = "SET_PAGE";
 const SET_COUNT = "SET_COUNT";
 const SET_PAGE_PAGE = "SET_TOTAL_PAGES";
 const SET_PAGE_COUNT = "SET_PAGE_COUNT";
+const ADD_IN_PROCESS = "ADD_IN_PROCESS";
+const DELETE_IN_PROCESS = "DELETE_IN_PROCESS";
 
 const usersReducer = (state = initialState, action) => {
   switch (action.type) {
+    case ADD_IN_PROCESS:
+      return {
+        ...state,
+        inProcess: [state.inProcess, action.id],
+      };
+    case DELETE_IN_PROCESS:
+      return {
+        ...state,
+        inProcess: state.inProcess.filter((id) => id != action.id),
+      };
     case SET_IS_FETCHING:
       return {
         ...state,
@@ -66,7 +79,7 @@ const usersReducer = (state = initialState, action) => {
           if (user.id == action.id) {
             return {
               ...user,
-              isFollowed: true,
+              followed: true,
             };
           }
           return user;
@@ -79,7 +92,7 @@ const usersReducer = (state = initialState, action) => {
           if (user.id == action.id) {
             return {
               ...user,
-              isFollowed: false,
+              followed: false,
             };
           }
           return user;
@@ -92,6 +105,18 @@ const usersReducer = (state = initialState, action) => {
 
 export default usersReducer;
 
+export const addInProcess = (id) => {
+  return {
+    type: ADD_IN_PROCESS,
+    id,
+  };
+};
+export const deleteInProcess = (id) => {
+  return {
+    type: DELETE_IN_PROCESS,
+    id,
+  };
+};
 export const setIsFetching = (isFetching) => {
   return {
     type: SET_IS_FETCHING,

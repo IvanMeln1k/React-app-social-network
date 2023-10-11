@@ -2,14 +2,27 @@ import React from "react";
 import s from "../Users.module.scss";
 import avatar from "../../../assets/images/avatar.jpg";
 import { NavLink } from "react-router-dom";
+import { usersAPI } from "../../../api/api";
 
 const User = (props) => {
   const onClickFollow = () => {
-    props.follow(props.user.id);
+    props.addInProcess(props.user.id);
+    usersAPI.follow(props.user.id).then((data) => {
+      if (data.resultCode == 0) {
+        props.follow(props.user.id);
+        props.deleteInProcess(props.user.id);
+      }
+    });
   };
 
   const onClickUnfollow = () => {
-    props.unfollow(props.user.id);
+    props.addInProcess(props.user.id);
+    usersAPI.unfollow(props.user.id).then((data) => {
+      if (data.resultCode == 0) {
+        props.unfollow(props.user.id);
+        props.deleteInProcess(props.user.id);
+      }
+    });
   };
 
   return (
@@ -31,13 +44,21 @@ const User = (props) => {
           </div>
         </div>
       </div>
-      {props.user.isFollowed ? (
-        <button className={s.user__button} onClick={onClickUnfollow}>
-          follow
+      {props.user.followed ? (
+        <button
+          disabled={props.inProcess.some((id) => id == props.user.id)}
+          className={s.user__button}
+          onClick={onClickUnfollow}
+        >
+          unfollow
         </button>
       ) : (
-        <button className={s.user__button} onClick={onClickFollow}>
-          unfollow
+        <button
+          disabled={props.inProcess.some((id) => id == props.user.id)}
+          className={s.user__button}
+          onClick={onClickFollow}
+        >
+          follow
         </button>
       )}
     </div>

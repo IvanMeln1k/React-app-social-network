@@ -91,5 +91,9 @@
     &:hover {
       background-color: rgba(115, 167, 190, 0.5);
     }
+
+    &:disabled {
+      background-color: rgba(115, 167, 190, 0.3);
+    }
   }
 }
