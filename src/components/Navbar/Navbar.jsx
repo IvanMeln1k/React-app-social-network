@@ -1,12 +1,17 @@
 import React from "react";
-import s from "./Navbar.module.scss";
 import { NavLink } from "react-router-dom";
+import cn from "classnames";
 
 const Link = (props) => {
   return (
     <NavLink
       className={({ isActive }) =>
-        isActive ? s.link_active + " " + s.link : s.link
+        cn(
+          "text-white text-[20px] min-w-full py-1 bg-slate-400 block px-2 rounded-[5px] ease-linear duration-200 hover:bg-slate-400/50",
+          {
+            "bg-slate-500": isActive,
+          }
+        )
       }
       to={props.path}
     >
@@ -23,10 +28,10 @@ const Navbar = (props) => {
   ];
 
   return (
-    <div>
-      <ul className={s.list}>
+    <div className="bg-indigo-200 col-span-1">
+      <ul className="flex flex-col-reverse gap-[10px]">
         {links.map((item) => (
-          <li>
+          <li className="w-full">
             <Link name={item.name} path={item.path} />
           </li>
         ))}
