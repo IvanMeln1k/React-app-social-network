@@ -1,23 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import Profile from "./Profile";
-import { setProfile, setIsFetching } from "../../redux/profile-reducer";
+import { getProfile } from "../../redux/profile-reducer";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
-    this.props.setIsFetching(true);
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/profile/${
-          this.props.userId || 2
-        }`
-      )
-      .then((response) => {
-        this.props.setProfile(response.data);
-        this.props.setIsFetching(false);
-      });
+    this.props.getProfile(this.props.userId || 2);
   }
 
   render() {
@@ -47,6 +37,5 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  setProfile,
-  setIsFetching,
+  getProfile,
 })(ProfileWithParams);

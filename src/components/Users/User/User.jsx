@@ -6,23 +6,11 @@ import { usersAPI } from "../../../api/api";
 
 const User = (props) => {
   const onClickFollow = () => {
-    props.addInProcess(props.user.id);
-    usersAPI.follow(props.user.id).then((data) => {
-      if (data.resultCode == 0) {
-        props.follow(props.user.id);
-        props.deleteInProcess(props.user.id);
-      }
-    });
+    props.follow(props.user.id);
   };
 
   const onClickUnfollow = () => {
-    props.addInProcess(props.user.id);
-    usersAPI.unfollow(props.user.id).then((data) => {
-      if (data.resultCode == 0) {
-        props.unfollow(props.user.id);
-        props.deleteInProcess(props.user.id);
-      }
-    });
+    props.unfollow(props.user.id);
   };
 
   return (

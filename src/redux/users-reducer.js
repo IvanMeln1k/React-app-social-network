@@ -1,3 +1,5 @@
+import { usersAPI } from "../api/api";
+
 const initialState = {
   users: [],
   totalCount: 0,
@@ -105,6 +107,36 @@ const usersReducer = (state = initialState, action) => {
 
 export default usersReducer;
 
+//Thunk creators
+export const getUsers = (count, page) => (dispatch) => {
+  dispatch(setIsFetching(true));
+  usersAPI.getUsers(count, page).then((data) => {
+    dispatch(setUsers(data.items));
+    dispatch(setTotalCount(data.totalCount));
+    dispatch(setPage(page));
+    dispatch(setIsFetching(false));
+  });
+};
+export const follow = (id) => (dispatch) => {
+  dispatch(addInProcess(id));
+  usersAPI.follow(id).then((data) => {
+    if (data.resultCode == 0) {
+      dispatch(followSuccess(id));
+      dispatch(deleteInProcess(id));
+    }
+  });
+};
+export const unfollow = (id) => (dispatch) => {
+  dispatch(addInProcess(id));
+  usersAPI.unfollow(id).then((data) => {
+    if (data.resultCode == 0) {
+      dispatch(unfollowSuccess(id));
+      dispatch(deleteInProcess(id));
+    }
+  });
+};
+
+//Action creators
 export const addInProcess = (id) => {
   return {
     type: ADD_IN_PROCESS,
@@ -153,13 +185,13 @@ export const setTotalCount = (totalCount) => {
     totalCount,
   };
 };
-export const follow = (id) => {
+export const followSuccess = (id) => {
   return {
     type: FOLLOW,
     id: id,
   };
 };
-export const unfollow = (id) => {
+export const unfollowSuccess = (id) => {
   return {
     type: UNFOLLOW,
     id: id,

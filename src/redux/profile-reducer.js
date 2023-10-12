@@ -1,3 +1,5 @@
+import { profileAPI } from "../api/api";
+
 const initialState = {
   isFetching: false,
   profile: null,
@@ -24,6 +26,16 @@ const profileReducer = (state = initialState, action) => {
   }
 };
 
+//Thunk creators
+export const getProfile = (id) => (dispatch) => {
+  dispatch(setIsFetching(true));
+  profileAPI.getProfile(id).then((data) => {
+    dispatch(setProfile(data));
+    dispatch(setIsFetching(false));
+  });
+};
+
+//Action creators
 export const setProfile = (profile) => {
   return {
     type: SET_PROFILE,

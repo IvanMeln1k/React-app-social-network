@@ -1,3 +1,5 @@
+import { authAPI } from "../api/api";
+
 const initialState = {
   userData: {
     id: null,
@@ -24,6 +26,16 @@ const authReducer = (state = initialState, action) => {
   }
 };
 
+//Thunk creators
+export const auth = () => (dispatch) => {
+  authAPI.authMe().then((data) => {
+    if (data.resultCode == 0) {
+      dispatch(setUserData(data.data));
+    }
+  });
+};
+
+//Action creators
 export const setUserData = (userData) => {
   return {
     type: SET_USER_DATA,
