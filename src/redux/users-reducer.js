@@ -50,10 +50,6 @@ const usersReducer = (state = initialState, action) => {
         ...state,
         pagePage: action.pagePage,
       };
-      return {
-        ...state,
-        totalPages: action.totalPages,
-      };
     case SET_COUNT:
       return {
         ...state,

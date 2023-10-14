@@ -4,6 +4,7 @@ import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import NavbarContainer from "./components/Navbar/NavbarContainer";
+import LoginContainer from "./components/Login/LoginContainer";
 
 const App = (props) => {
   return (
@@ -13,6 +14,7 @@ const App = (props) => {
         <NavbarContainer />
         <div className="bg-indigo-200 col-span-4">
           <Routes>
+            <Route path="/login" element={<LoginContainer />} />
             <Route path="/profile/:id?" element={<ProfileContainer />} />
             <Route
               path="/dialogs/*"
