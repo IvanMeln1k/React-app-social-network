@@ -26,10 +26,32 @@ export const authAPI = {
   authMe() {
     return instance.get("/auth/me").then((response) => response.data);
   },
+  login(email, password, rememberMe = false) {
+    return instance
+      .post("/auth/login", {
+        email,
+        password,
+        rememberMe,
+      })
+      .then((response) => response.data);
+  },
+  logout() {
+    return instance.delete("/auth/login").then((response) => response.data);
+  },
 };
 
 export const profileAPI = {
   getProfile(id) {
     return instance.get(`/profile/${id}`).then((response) => response.data);
+  },
+  getStatus(id) {
+    return instance
+      .get(`/profile/status/${id}`)
+      .then((response) => response.data);
+  },
+  updateStatus(status) {
+    return instance
+      .put(`/profile/status`, { status: status })
+      .then((response) => response.data);
   },
 };

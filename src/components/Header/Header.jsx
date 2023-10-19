@@ -17,10 +17,17 @@ const Header = (props) => {
           <NavLink to="/login">login</NavLink>
         </div>
       ) : (
-        <div className="text-white underline text-[20px] hover:no-underline">
+        <div className="[&>*]:text-white [&>*]:underline [&>*]:text-[20px] [&>*:hover]:no-underline flex gap-[30px]">
           <NavLink to={`/profile/${props.userData.id}`}>
             {props.userData.login}
           </NavLink>
+          <button
+            onClick={() => {
+              props.logout();
+            }}
+          >
+            Logout
+          </button>
         </div>
       )}
     </header>
