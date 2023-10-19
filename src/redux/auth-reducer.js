@@ -29,7 +29,7 @@ const authReducer = (state = initialState, action) => {
 
 //Thunk creators
 export const auth = () => (dispatch) => {
-  authAPI.authMe().then((data) => {
+  return authAPI.authMe().then((data) => {
     if (data.resultCode == 0) {
       dispatch(setUserData(data.data, true));
     }

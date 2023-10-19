@@ -6,16 +6,31 @@ import {
   getStatus,
   updateStatus,
 } from "../../redux/profile-reducer";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
-    this.props.getProfile(this.props.userId || this.props.userData.id);
-    this.props.getStatus(this.props.userId || this.props.userData.id);
+    if (this.props.userId) {
+      this.props.getProfile(this.props.userId || this.props.userData.id);
+      this.props.getStatus(this.props.userId || this.props.userData.id);
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.userId && this.props.userId != prevProps.userId) {
+      this.props.getProfile(this.props.userId || this.props.userData.id);
+      this.props.getStatus(this.props.userId || this.props.userData.id);
+    }
   }
 
   render() {
+    if (!this.props.userId && this.props.userData.id) {
+      return <Navigate to={`/profile/${this.props.userData.id}`} />;
+    } else if (!this.props.userId && !this.props.userData.id) {
+      return <Navigate to="/login" />;
+    }
+
     return (
       <>
         {this.props.isFetching || !this.props.profile ? (
