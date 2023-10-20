@@ -8,6 +8,16 @@ import {
   unfollow,
 } from "../../redux/users-reducer";
 import { usersAPI } from "../../api/api";
+import {
+  getCountSelector,
+  getInProcessSelector,
+  getIsFetchingSelector,
+  getPageCountSelector,
+  getPagePageSelector,
+  getPageSelector,
+  getTotalCountSelector,
+  getUsersSelector,
+} from "../../redux/users-selectors";
 
 class UsersContainer extends React.Component {
   constructor(props) {
@@ -23,6 +33,7 @@ class UsersContainer extends React.Component {
   };
 
   render() {
+    console.log("render");
     return (
       <Users
         onChagePage={this.onChagePage}
@@ -43,15 +54,16 @@ class UsersContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log("mstp");
   return {
-    users: state.usersPage.users,
-    totalCount: state.usersPage.totalCount,
-    page: state.usersPage.page,
-    count: state.usersPage.count,
-    pagePage: state.usersPage.pagePage,
-    pageCount: state.usersPage.pageCount,
-    isFetching: state.usersPage.isFetching,
-    inProcess: state.usersPage.inProcess,
+    users: getUsersSelector(state),
+    totalCount: getTotalCountSelector(state),
+    page: getPageSelector(state),
+    count: getCountSelector(state),
+    pagePage: getPagePageSelector(state),
+    pageCount: getPageCountSelector(state),
+    isFetching: getIsFetchingSelector(state),
+    inProcess: getInProcessSelector(state),
   };
 };
 
