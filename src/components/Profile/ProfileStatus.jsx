@@ -1,61 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-class ProfileStatus extends React.Component {
-  state = {
-    editMode: false,
-    status: this.props.status,
+const ProfileStatusWithHooks = (props) => {
+  const [editMode, setEditMode] = useState(false);
+  const [status, setStatus] = useState(props.status);
+
+  const changeStatus = (e) => {
+    setStatus(e.currentTarget.value);
+  };
+  const activateEditMode = () => {
+    setEditMode(true);
+  };
+  const deactivateEditMode = () => {
+    setEditMode(false);
+    props.updateStatus(status);
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.status != this.props.status) {
-      this.setState({
-        status: this.props.status,
-      });
-    }
-  }
+  useEffect(() => {
+    setStatus(props.status);
+  }, [props.status]);
 
-  activateEditMode() {
-    this.setState({
-      editMode: true,
-    });
-  }
-  deactivateEditMode() {
-    this.setState({
-      editMode: false,
-    });
-    this.props.updateStatus(this.state.status);
-  }
-  changeStatus(e) {
-    this.setState({
-      status: e.currentTarget.value,
-    });
-  }
+  return (
+    <div className="text-white italic text-[16px]">
+      {editMode ? (
+        <input
+          className="text-black"
+          onChange={changeStatus}
+          onBlur={deactivateEditMode}
+          value={status}
+        />
+      ) : (
+        <span onDoubleClick={activateEditMode}>
+          {props.status || "no status"}
+        </span>
+      )}
+    </div>
+  );
+};
 
-  render() {
-    if (this.props.userId != this.props.userData.id) {
-      return (
-        <div className="text-white italic text-[16px]">
-          <span>{this.props.status || "no status"}</span>
-        </div>
-      );
-    }
-    return (
-      <div className="text-white italic text-[16px]">
-        {this.state.editMode ? (
-          <input
-            className="text-black"
-            onChange={this.changeStatus.bind(this)}
-            onBlur={this.deactivateEditMode.bind(this)}
-            value={this.state.status}
-          />
-        ) : (
-          <span onDoubleClick={this.activateEditMode.bind(this)}>
-            {this.props.status || "no status"}
-          </span>
-        )}
-      </div>
-    );
-  }
-}
-
-export default ProfileStatus;
+export default ProfileStatusWithHooks;
