@@ -21,7 +21,7 @@ const ProfileStatusWithHooks = (props) => {
 
   return (
     <div className="text-white italic text-[16px]">
-      {editMode ? (
+      {editMode && props.userData.id == props.userId ? (
         <input
           className="text-black"
           onChange={changeStatus}
