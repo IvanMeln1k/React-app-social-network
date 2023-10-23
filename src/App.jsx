@@ -1,15 +1,23 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import UsersContainer from "./components/Users/UsersContainer";
-import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import NavbarContainer from "./components/Navbar/NavbarContainer";
-import LoginContainer from "./components/Login/LoginContainer";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { initializeApp } from "./redux/app-reducer";
 import preloader from "./assets/gifs/preloader.gif";
+const UsersContainer = React.laze(() =>
+  import("./components/Users/UsersContainer")
+);
+const DialogsContainer = React.lazy(() =>
+  import("./components/Dialogs/DialogsContainer")
+);
+const ProfileContainer = React.lazy(() =>
+  import("./components/Profile/ProfileContainer")
+);
+const LoginContainer = React.lazy(() =>
+  import("./components/Login/LoginContainer")
+);
 
 class App extends React.Component {
   componentDidMount() {
@@ -32,10 +40,38 @@ class App extends React.Component {
           <NavbarContainer />
           <div className="bg-indigo-200 col-span-4">
             <Routes>
-              <Route path="/login" element={<LoginContainer />} />
-              <Route path="/profile/:id?" element={<ProfileContainer />} />
-              <Route path="/dialogs/*" element={<DialogsContainer />} />
-              <Route path="/users/*" element={<UsersContainer />} />
+              <Route
+                path="/login"
+                element={
+                  <React.Suspense fallback={<div>Loading...</div>}>
+                    <LoginContainer />
+                  </React.Suspense>
+                }
+              />
+              <Route
+                path="/profile/:id?"
+                element={
+                  <React.Suspense fallback={<div>Loading...</div>}>
+                    <ProfileContainer />
+                  </React.Suspense>
+                }
+              />
+              <Route
+                path="/dialogs/*"
+                element={
+                  <React.Suspense fallback={<div>Loading...</div>}>
+                    <DialogsContainer />
+                  </React.Suspense>
+                }
+              />
+              <Route
+                path="/users/*"
+                element={
+                  <React.Suspense fallback={<div>Loading...</div>}>
+                    <UsersContainer />
+                  </React.Suspense>
+                }
+              />
             </Routes>
           </div>
         </div>
