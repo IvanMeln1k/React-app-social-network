@@ -4,13 +4,12 @@ import { connect } from "react-redux";
 
 class NavbarContainer extends React.Component {
   render() {
-    return <Navbar isAuth={this.props.isAuth} userData={this.props.userData} />;
+    return <Navbar userData={this.props.userData} />;
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    isAuth: state.auth.isAuth,
     userData: state.auth.userData,
   };
 };

@@ -7,7 +7,6 @@ import {
   updateStatus,
 } from "../../redux/profile-reducer";
 import { Navigate, useParams } from "react-router-dom";
-import axios from "axios";
 
 class ProfileContainer extends React.Component {
   componentDidMount() {

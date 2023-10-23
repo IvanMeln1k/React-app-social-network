@@ -1,6 +1,4 @@
-export const inputField = (props) => {
-  const { input, meta, ...restProps } = { ...props };
-
+export const inputField = ({ input, meta, ...restProps }) => {
   return (
     <div className="flex gap-[5px] items-end">
       <input className="" {...input} {...restProps}></input>

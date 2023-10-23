@@ -3,37 +3,50 @@ import User from "./User/User";
 import s from "./Users.module.scss";
 import preloader from "../../assets/gifs/preloader.gif";
 
-const Users = (props) => {
-  const totalPageCount = Math.ceil(props.totalCount / props.count);
-  const totalPagePageCount = Math.ceil(totalPageCount / props.pageCount);
+const Users = ({
+  onChagePage,
+  setPagePage,
+  totalCount,
+  count,
+  pageCount,
+  pagePage,
+  users,
+  page,
+  isFetching,
+  inProcess,
+  follow,
+  unfollow,
+}) => {
+  const totalPageCount = Math.ceil(totalCount / count);
+  const totalPagePageCount = Math.ceil(totalPageCount / pageCount);
   return (
     <div className={s.wrapper}>
       <h2 className={s.title}>Users</h2>
       <div className={s.pagination}>
         <button
           className={s.pagination__button}
-          onClick={() => props.setPagePage(props.pagePage - 1)}
-          disabled={props.pagePage == 1}
+          onClick={() => setPagePage(pagePage - 1)}
+          disabled={pagePage == 1}
         >
           Previous
         </button>
         <div className={s.pagination__pages}>
           {Array.from({ length: 5 }, (_, index) => index + 1).map(
             (item, index, array) => {
-              const page = item + (props.pagePage - 1) * props.pageCount;
-              if (page > totalPageCount) {
+              const i_page = item + (pagePage - 1) * pageCount;
+              if (i_page > totalPageCount) {
                 return;
               }
               return (
                 <button
                   className={
-                    page == props.page
+                    i_page == page
                       ? s.pagination__page + " " + s.pagination__page_active
                       : s.pagination__page
                   }
-                  onClick={() => props.onChagePage(page)}
+                  onClick={() => onChagePage(i_page)}
                 >
-                  {page}
+                  {i_page}
                 </button>
               );
             }
@@ -41,22 +54,22 @@ const Users = (props) => {
         </div>
         <button
           className={s.pagination__button}
-          onClick={() => props.setPagePage(props.pagePage + 1)}
-          disabled={totalPagePageCount <= props.pagePage}
+          onClick={() => setPagePage(pagePage + 1)}
+          disabled={totalPagePageCount <= pagePage}
         >
           Next
         </button>
       </div>
-      {props.isFetching ? (
+      {isFetching ? (
         <img src={preloader} />
       ) : (
         <div className={s.users}>
-          {props.users.map((user) => (
+          {users.map((user) => (
             <User
-              inProcess={props.inProcess}
+              inProcess={inProcess}
               user={user}
-              follow={props.follow}
-              unfollow={props.unfollow}
+              follow={follow}
+              unfollow={unfollow}
             />
           ))}
         </div>

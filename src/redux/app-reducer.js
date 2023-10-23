@@ -4,7 +4,8 @@ const initialState = {
   isInitialized: false,
 };
 
-const INITIALIZED_SUCCESS = "INITIALIZED_SUCCES";
+const INITIALIZED_SUCCESS =
+  "React-app-social-network/app-reducer/INITIALIZED_SUCCES";
 
 const appReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -21,10 +22,9 @@ const appReducer = (state = initialState, action) => {
 export default appReducer;
 
 //Thunk creators
-export const initializeApp = () => (dispatch) => {
-  dispatch(auth()).then(() => {
-    dispatch(initializedSuccess());
-  });
+export const initializeApp = () => async (dispatch) => {
+  await dispatch(auth());
+  dispatch(initializedSuccess());
 };
 
 //Actions creators

@@ -10,7 +10,7 @@ const initialState = {
   isAuth: false,
 };
 
-const SET_USER_DATA = "SET_USER_DATA";
+const SET_USER_DATA = "React-app-social-network/auth-reducer/SET_USER_DATA";
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -28,41 +28,38 @@ const authReducer = (state = initialState, action) => {
 };
 
 //Thunk creators
-export const auth = () => (dispatch) => {
-  return authAPI.authMe().then((data) => {
-    if (data.resultCode == 0) {
-      dispatch(setUserData(data.data, true));
-    }
-  });
+export const auth = () => async (dispatch) => {
+  const data = await authAPI.authMe();
+  if (data.resultCode == 0) {
+    dispatch(setUserData(data.data, true));
+  }
 };
 export const login =
   (email, password, rememberMe = false) =>
-  (dispatch) => {
-    authAPI.login(email, password, rememberMe).then((data) => {
-      if (data.resultCode == 0) {
-        dispatch(auth());
-      } else {
-        const message =
-          data.messages.length > 0 ? data.messages[0] : "Some error";
-        dispatch(stopSubmit("login", { _error: message }));
-      }
-    });
-  };
-export const logout = () => (dispatch) => {
-  authAPI.logout().then((data) => {
+  async (dispatch) => {
+    const data = await authAPI.login(email, password, rememberMe);
     if (data.resultCode == 0) {
-      dispatch(
-        setUserData(
-          {
-            id: null,
-            email: null,
-            login: null,
-          },
-          false
-        )
-      );
+      dispatch(auth());
+    } else {
+      const message =
+        data.messages.length > 0 ? data.messages[0] : "Some error";
+      dispatch(stopSubmit("login", { _error: message }));
     }
-  });
+  };
+export const logout = () => async (dispatch) => {
+  const data = await authAPI.logout();
+  if (data.resultCode == 0) {
+    dispatch(
+      setUserData(
+        {
+          id: null,
+          email: null,
+          login: null,
+        },
+        false
+      )
+    );
+  }
 };
 
 //Action creators

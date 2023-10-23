@@ -11,17 +11,20 @@ const initialState = {
   inProcess: [],
 };
 
-const SET_IS_FETCHING = "SET_IF_FETCHING";
-const SET_USERS = "SET_USERS";
-const FOLLOW = "FOLLOW";
-const UNFOLLOW = "UNFOLLOW";
-const SET_TOTAL_COUNT = "SET_TOTAL_COUNT";
-const SET_PAGE = "SET_PAGE";
-const SET_COUNT = "SET_COUNT";
-const SET_PAGE_PAGE = "SET_TOTAL_PAGES";
-const SET_PAGE_COUNT = "SET_PAGE_COUNT";
-const ADD_IN_PROCESS = "ADD_IN_PROCESS";
-const DELETE_IN_PROCESS = "DELETE_IN_PROCESS";
+const SET_IS_FETCHING =
+  "React-app-social-network/users-reducer/SET_IF_FETCHING";
+const SET_USERS = "React-app-social-network/users-reducer/SET_USERS";
+const FOLLOW = "React-app-social-network/users-reducer/FOLLOW";
+const UNFOLLOW = "React-app-social-network/users-reducer/UNFOLLOW";
+const SET_TOTAL_COUNT =
+  "React-app-social-network/users-reducer/SET_TOTAL_COUNT";
+const SET_PAGE = "React-app-social-network/users-reducer/SET_PAGE";
+const SET_COUNT = "React-app-social-network/users-reducer/SET_COUNT";
+const SET_PAGE_PAGE = "React-app-social-network/users-reducer/SET_TOTAL_PAGES";
+const SET_PAGE_COUNT = "React-app-social-network/users-reducer/SET_PAGE_COUNT";
+const ADD_IN_PROCESS = "React-app-social-network/users-reducer/ADD_IN_PROCESS";
+const DELETE_IN_PROCESS =
+  "React-app-social-network/users-reducer/DELETE_IN_PROCESS";
 
 const usersReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -104,32 +107,29 @@ const usersReducer = (state = initialState, action) => {
 export default usersReducer;
 
 //Thunk creators
-export const getUsers = (count, page) => (dispatch) => {
+export const getUsers = (count, page) => async (dispatch) => {
   dispatch(setIsFetching(true));
-  usersAPI.getUsers(count, page).then((data) => {
-    dispatch(setUsers(data.items));
-    dispatch(setTotalCount(data.totalCount));
-    dispatch(setPage(page));
-    dispatch(setIsFetching(false));
-  });
+  const data = await usersAPI.getUsers(count, page);
+  dispatch(setUsers(data.items));
+  dispatch(setTotalCount(data.totalCount));
+  dispatch(setPage(page));
+  dispatch(setIsFetching(false));
 };
-export const follow = (id) => (dispatch) => {
+export const follow = (id) => async (dispatch) => {
   dispatch(addInProcess(id));
-  usersAPI.follow(id).then((data) => {
-    if (data.resultCode == 0) {
-      dispatch(followSuccess(id));
-      dispatch(deleteInProcess(id));
-    }
-  });
+  const data = await usersAPI.follow(id);
+  if (data.resultCode == 0) {
+    dispatch(followSuccess(id));
+    dispatch(deleteInProcess(id));
+  }
 };
-export const unfollow = (id) => (dispatch) => {
+export const unfollow = (id) => async (dispatch) => {
   dispatch(addInProcess(id));
-  usersAPI.unfollow(id).then((data) => {
-    if (data.resultCode == 0) {
-      dispatch(unfollowSuccess(id));
-      dispatch(deleteInProcess(id));
-    }
-  });
+  const data = await usersAPI.unfollow(id);
+  if (data.resultCode == 0) {
+    dispatch(unfollowSuccess(id));
+    dispatch(deleteInProcess(id));
+  }
 };
 
 //Action creators

@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-const Header = (props) => {
+const Header = ({ userData, logout, isAuth }) => {
   return (
     <header className="bg-indigo-200 col-span-5 flex justify-between items-center min-h-[80px]">
       <div className="w-[50px] h-[50px] rounded-[50%] overflow-hidden [&>img]:max-w-[100%]">
@@ -12,18 +12,16 @@ const Header = (props) => {
           />
         </NavLink>
       </div>
-      {!props.isAuth ? (
+      {!isAuth ? (
         <div className="text-white underline text-[20px] hover:no-underline">
           <NavLink to="/login">login</NavLink>
         </div>
       ) : (
         <div className="[&>*]:text-white [&>*]:underline [&>*]:text-[20px] [&>*:hover]:no-underline flex gap-[30px]">
-          <NavLink to={`/profile/${props.userData.id}`}>
-            {props.userData.login}
-          </NavLink>
+          <NavLink to={`/profile/${userData.id}`}>{userData.login}</NavLink>
           <button
             onClick={() => {
-              props.logout();
+              logout();
             }}
           >
             Logout

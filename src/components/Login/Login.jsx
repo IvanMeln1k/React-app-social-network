@@ -3,9 +3,9 @@ import { Field, reduxForm } from "redux-form";
 import { inputField } from "../common/Forms";
 import { required } from "../../utils/validators";
 
-const LoginForm = (props) => {
+const LoginForm = ({ handleSubmit, error }) => {
   return (
-    <form onSubmit={props.handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <div className="flex flex-col gap-[10px] mb-[10px]">
         <div className="[&_input]:min-h-[30px] flex [&_input]:px-[10px]">
           <Field
@@ -30,9 +30,7 @@ const LoginForm = (props) => {
           <Field name="rememberMe" component="input" type="checkbox" />
         </div>
       </div>
-      {props.error && (
-        <div className="text-red-500 mb-[10px]">{props.error}</div>
-      )}
+      {error && <div className="text-red-500 mb-[10px]">{error}</div>}
       <button
         className="flex min-h-[40px] bg-slate-400 px-[50px] items-center justify-center rounded-[5px] text-white hover:bg-slate-400/50 ease-linear duration-200"
         type="submit"
@@ -44,9 +42,9 @@ const LoginForm = (props) => {
 };
 const LoginReduxForm = reduxForm({ form: "login" })(LoginForm);
 
-const Login = (props) => {
+const Login = ({ login }) => {
   const onSubmit = (values) => {
-    props.login(values.email, values.password, values.rememberMe);
+    login(values.email, values.password, values.rememberMe);
   };
   return (
     <div>

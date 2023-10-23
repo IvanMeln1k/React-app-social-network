@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import cn from "classnames";
 
-const Link = (props) => {
+const Link = ({ name, path }) => {
   return (
     <NavLink
       className={({ isActive }) =>
@@ -13,16 +13,16 @@ const Link = (props) => {
           }
         )
       }
-      to={props.path}
+      to={path}
     >
-      {props.name}
+      {name}
     </NavLink>
   );
 };
 
-const Navbar = (props) => {
+const Navbar = ({ isAuth, userData }) => {
   const links = [
-    { name: "Profile", path: `/profile/${props.userData.id || 2}` },
+    { name: "Profile", path: `/profile/${userData.id || ""}` },
     { name: "Dialogs", path: "/dialogs" },
     { name: "Users", path: "/users" },
   ];

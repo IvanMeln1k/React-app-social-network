@@ -1,5 +1,6 @@
-const ADD_MESSAGE = "ADD_MESSAGE";
-const CHANGE_NEW_MESSAGE_BODY = "CHANGE_NEW_MESSAGE_BODY";
+const ADD_MESSAGE = "React-app-social-network/dialogs-reducer/DD_MESSAGE";
+const CHANGE_NEW_MESSAGE_BODY =
+  "React-app-social-network/dialogs-reducer/CHANGE_NEW_MESSAGE_BODY";
 
 const initialState = {
   chats: [
