@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const ProfileStatusWithHooks = ({ userData, userId, status, updateStatus }) => {
+const ProfileStatusWithHooks = ({ isOwner, userId, status, updateStatus }) => {
   const [editMode, setEditMode] = useState(false);
   const [statusState, setStatusState] = useState(status);
 
@@ -21,7 +21,7 @@ const ProfileStatusWithHooks = ({ userData, userId, status, updateStatus }) => {
 
   return (
     <div className="text-white italic text-[16px]">
-      {editMode && userData.id == userId ? (
+      {editMode && isOwner ? (
         <input
           autoFocus={true}
           className="text-black"

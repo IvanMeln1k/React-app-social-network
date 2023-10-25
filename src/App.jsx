@@ -6,7 +6,7 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { initializeApp } from "./redux/app-reducer";
 import preloader from "./assets/gifs/preloader.gif";
-const UsersContainer = React.laze(() =>
+const UsersContainer = React.lazy(() =>
   import("./components/Users/UsersContainer")
 );
 const DialogsContainer = React.lazy(() =>

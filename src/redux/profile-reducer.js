@@ -11,6 +11,8 @@ const SET_PROFILE = "React-app-social-network/profile-reducer/SET_PROFILE";
 const SET_IS_FETCHING =
   "React-app-social-network/profile-reducer/SET_IS_FETCHING";
 const SET_STATUS = "React-app-social-network/profile-reducer/SET_STATUS";
+const UPDATE_PHOTO_SUCCESS =
+  "React-app-social-network/profile-reducer/UPDATE_PHOTO_SUCCESS";
 
 const profileReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -28,6 +30,14 @@ const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         isFetching: action.isFetching,
+      };
+    case UPDATE_PHOTO_SUCCESS:
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          photos: { ...action.photos },
+        },
       };
     default:
       return state;
@@ -51,6 +61,12 @@ export const updateStatus = (status) => async (dispatch) => {
     dispatch(setStatus(status));
   }
 };
+export const updatePhoto = (photo) => async (dispatch) => {
+  const data = await profileAPI.updatePhoto(photo);
+  if (data.resultCode == 0) {
+    dispatch(updatePhotoSuccess(data.data.photos));
+  }
+};
 
 //Action creators
 export const setStatus = (status) => {
@@ -69,6 +85,12 @@ export const setIsFetching = (isFetching) => {
   return {
     type: SET_IS_FETCHING,
     isFetching,
+  };
+};
+const updatePhotoSuccess = (photos) => {
+  return {
+    type: UPDATE_PHOTO_SUCCESS,
+    photos,
   };
 };
 

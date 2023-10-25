@@ -5,21 +5,25 @@ import {
   getProfile,
   getStatus,
   updateStatus,
+  updatePhoto,
 } from "../../redux/profile-reducer";
 import { Navigate, useParams } from "react-router-dom";
 
 class ProfileContainer extends React.Component {
-  componentDidMount() {
+  refreshProfile() {
     if (this.props.userId) {
       this.props.getProfile(this.props.userId || this.props.userData.id);
       this.props.getStatus(this.props.userId || this.props.userData.id);
     }
   }
 
+  componentDidMount() {
+    this.refreshProfile();
+  }
+
   componentDidUpdate(prevProps) {
-    if (this.props.userId && this.props.userId != prevProps.userId) {
-      this.props.getProfile(this.props.userId || this.props.userData.id);
-      this.props.getStatus(this.props.userId || this.props.userData.id);
+    if (this.props.userId != prevProps.userId) {
+      this.refreshProfile();
     }
   }
 
@@ -39,7 +43,8 @@ class ProfileContainer extends React.Component {
             profile={this.props.profile}
             status={this.props.status}
             updateStatus={this.props.updateStatus}
-            userData={this.props.userData}
+            isOwner={this.props.isOwner}
+            updatePhoto={this.props.updatePhoto}
           />
         )}
       </>
@@ -58,7 +63,7 @@ const mapStateToProps = (state) => {
     profile: state.profilePage.profile,
     isFetching: state.profilePage.isFetching,
     status: state.profilePage.status,
-    userData: state.auth.userData,
+    isOwner: state.auth.userData.id == state.profilePage.profile?.userId,
   };
 };
 
@@ -66,4 +71,5 @@ export default connect(mapStateToProps, {
   getProfile,
   getStatus,
   updateStatus,
+  updatePhoto,
 })(ProfileWithParams);
