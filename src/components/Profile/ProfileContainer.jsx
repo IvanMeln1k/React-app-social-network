@@ -6,6 +6,7 @@ import {
   getStatus,
   updateStatus,
   updatePhoto,
+  updateProfile,
 } from "../../redux/profile-reducer";
 import { Navigate, useParams } from "react-router-dom";
 
@@ -45,6 +46,7 @@ class ProfileContainer extends React.Component {
             updateStatus={this.props.updateStatus}
             isOwner={this.props.isOwner}
             updatePhoto={this.props.updatePhoto}
+            updateProfile={this.props.updateProfile}
           />
         )}
       </>
@@ -72,4 +74,5 @@ export default connect(mapStateToProps, {
   getStatus,
   updateStatus,
   updatePhoto,
+  updateProfile,
 })(ProfileWithParams);

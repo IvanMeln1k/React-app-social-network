@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import avatar from "../../assets/images/avatar.jpg";
 import ProfileStatus from "./ProfileStatus";
 import { Field } from "redux-form";
+import ProfileData from "./ProfileData/ProfileData";
 
 export const Profile = ({
   profile,
@@ -9,10 +10,11 @@ export const Profile = ({
   updateStatus,
   isOwner,
   updatePhoto,
+  updateProfile,
 }) => {
   return (
     <div className="">
-      <div className="flex gap-[10px]">
+      <div className="flex gap-[10px] mb-[10px]">
         <div className="">
           <div className="w-[300px] h-[300px] relative">
             <img
@@ -46,7 +48,13 @@ export const Profile = ({
         </div>
       </div>
 
-      <div className="">Other data</div>
+      <div className="">
+        <ProfileData
+          profile={profile}
+          isOwner={isOwner}
+          updateProfile={updateProfile}
+        />
+      </div>
     </div>
   );
 };
