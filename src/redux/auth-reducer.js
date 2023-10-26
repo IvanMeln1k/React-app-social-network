@@ -1,5 +1,5 @@
 import { stopSubmit } from "redux-form";
-import { authAPI } from "../api/api";
+import { authAPI, securityAPI } from "../api/api";
 
 const initialState = {
   userData: {
@@ -8,9 +8,11 @@ const initialState = {
     login: null,
   },
   isAuth: false,
+  captcha: null,
 };
 
 const SET_USER_DATA = "React-app-social-network/auth-reducer/SET_USER_DATA";
+const SET_CAPTCHA = "React-app-social-network/auth-reducer/SET_CAPTCHA";
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -21,6 +23,11 @@ const authReducer = (state = initialState, action) => {
           ...action.userData,
         },
         isAuth: action.isAuth,
+      };
+    case SET_CAPTCHA:
+      return {
+        ...state,
+        captcha: action.captcha,
       };
     default:
       return state;
@@ -34,12 +41,19 @@ export const auth = () => async (dispatch) => {
     dispatch(setUserData(data.data, true));
   }
 };
+export const getCaptcha = () => async (dispatch) => {
+  const data = await securityAPI.getCaptcha();
+  dispatch(setCaptcha(data.url));
+};
 export const login =
-  (email, password, rememberMe = false) =>
+  (email, password, rememberMe = false, captcha = null) =>
   async (dispatch) => {
-    const data = await authAPI.login(email, password, rememberMe);
+    const data = await authAPI.login(email, password, rememberMe, captcha);
     if (data.resultCode == 0) {
       dispatch(auth());
+    } else if (data.resultCode == 10) {
+      dispatch(getCaptcha());
+      dispatch(stopSubmit("login", { _error: "Captcha" }));
     } else {
       const message =
         data.messages.length > 0 ? data.messages[0] : "Some error";
@@ -68,6 +82,12 @@ export const setUserData = (userData, isAuth) => {
     type: SET_USER_DATA,
     userData,
     isAuth,
+  };
+};
+export const setCaptcha = (captcha) => {
+  return {
+    type: SET_CAPTCHA,
+    captcha,
   };
 };
 

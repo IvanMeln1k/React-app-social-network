@@ -23,7 +23,6 @@ const ProfileDataForm = ({
   React.useEffect(() => {
     destroy();
     initialize(profile);
-    console.log("effect");
   }, [destroy, initialize, profile]);
   return (
     <form
