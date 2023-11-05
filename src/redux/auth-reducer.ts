@@ -3,18 +3,24 @@ import { authAPI, securityAPI } from "../api/api";
 
 const initialState = {
   userData: {
-    id: null,
-    email: null,
-    login: null,
+    id: null as null | string,
+    email: null as null | string,
+    login: null as null | string,
   },
   isAuth: false,
-  captcha: null,
+  captcha: null as null | string,
+};
+export type StateType = typeof initialState;
+export type UserDataType = {
+  id: number | null;
+  email: string | null;
+  login: string | null;
 };
 
 const SET_USER_DATA = "React-app-social-network/auth-reducer/SET_USER_DATA";
 const SET_CAPTCHA = "React-app-social-network/auth-reducer/SET_CAPTCHA";
 
-const authReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action: any): StateType => {
   switch (action.type) {
     case SET_USER_DATA:
       return {
@@ -35,19 +41,19 @@ const authReducer = (state = initialState, action) => {
 };
 
 //Thunk creators
-export const auth = () => async (dispatch) => {
+export const auth = () => async (dispatch: any) => {
   const data = await authAPI.authMe();
   if (data.resultCode == 0) {
     dispatch(setUserData(data.data, true));
   }
 };
-export const getCaptcha = () => async (dispatch) => {
+export const getCaptcha = () => async (dispatch: any) => {
   const data = await securityAPI.getCaptcha();
   dispatch(setCaptcha(data.url));
 };
 export const login =
-  (email, password, rememberMe = false, captcha = null) =>
-  async (dispatch) => {
+  (email: string, password: string, rememberMe = false, captcha = null) =>
+  async (dispatch: any) => {
     const data = await authAPI.login(email, password, rememberMe, captcha);
     if (data.resultCode == 0) {
       dispatch(auth());
@@ -60,7 +66,7 @@ export const login =
       dispatch(stopSubmit("login", { _error: message }));
     }
   };
-export const logout = () => async (dispatch) => {
+export const logout = () => async (dispatch: any) => {
   const data = await authAPI.logout();
   if (data.resultCode == 0) {
     dispatch(
@@ -77,14 +83,26 @@ export const logout = () => async (dispatch) => {
 };
 
 //Action creators
-export const setUserData = (userData, isAuth) => {
+type SetUserDataType = {
+  type: typeof SET_USER_DATA;
+  userData: UserDataType;
+  isAuth: boolean;
+};
+export const setUserData = (
+  userData: UserDataType,
+  isAuth: boolean
+): SetUserDataType => {
   return {
     type: SET_USER_DATA,
     userData,
     isAuth,
   };
 };
-export const setCaptcha = (captcha) => {
+type SetCaptchaType = {
+  type: typeof SET_CAPTCHA;
+  captcha: string;
+};
+export const setCaptcha = (captcha: string): SetCaptchaType => {
   return {
     type: SET_CAPTCHA,
     captcha,

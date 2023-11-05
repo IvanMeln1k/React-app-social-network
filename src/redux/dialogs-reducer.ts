@@ -17,8 +17,13 @@ const initialState = {
   ],
   newMessageBody: "Some text",
 };
+export type StateType = typeof initialState;
+export type MessageType = {
+  id: number;
+  messsage: string;
+};
 
-const dialogsReducer = (state = initialState, action) => {
+const dialogsReducer = (state = initialState, action: any): StateType => {
   switch (action.type) {
     case ADD_MESSAGE:
       return {
@@ -41,10 +46,17 @@ const dialogsReducer = (state = initialState, action) => {
   }
 };
 
-export const addMessage = () => ({
+type AddMessageActionType = {
+  type: typeof ADD_MESSAGE;
+};
+export const addMessage = (): AddMessageActionType => ({
   type: ADD_MESSAGE,
 });
-export const changeNewMessageBody = (body) => ({
+type ChangeNewMessageBody = {
+  type: typeof CHANGE_NEW_MESSAGE_BODY;
+  body: string;
+};
+export const changeNewMessageBody = (body: string): ChangeNewMessageBody => ({
   type: CHANGE_NEW_MESSAGE_BODY,
   body: body,
 });

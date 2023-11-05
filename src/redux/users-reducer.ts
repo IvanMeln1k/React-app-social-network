@@ -1,15 +1,23 @@
 import { usersAPI } from "../api/api";
+import { PhotosType } from "./profile-reducer";
 
 const initialState = {
-  users: [],
+  users: [] as Array<UserType>,
   totalCount: 0,
   page: 1,
   count: 5,
   pagePage: 1,
   pageCount: 5,
   isFetching: false,
-  inProcess: [],
+  inProcess: [] as Array<number>,
 };
+export type UserType = {
+  id: number;
+  name: string;
+  status: string;
+  photos: PhotosType;
+};
+export type StateType = typeof initialState;
 
 const SET_IS_FETCHING =
   "React-app-social-network/users-reducer/SET_IF_FETCHING";
@@ -26,7 +34,7 @@ const ADD_IN_PROCESS = "React-app-social-network/users-reducer/ADD_IN_PROCESS";
 const DELETE_IN_PROCESS =
   "React-app-social-network/users-reducer/DELETE_IN_PROCESS";
 
-const usersReducer = (state = initialState, action) => {
+const usersReducer = (state = initialState, action: any): StateType => {
   switch (action.type) {
     case ADD_IN_PROCESS:
       return {
@@ -107,15 +115,16 @@ const usersReducer = (state = initialState, action) => {
 export default usersReducer;
 
 //Thunk creators
-export const getUsers = (count, page) => async (dispatch) => {
-  dispatch(setIsFetching(true));
-  const data = await usersAPI.getUsers(count, page);
-  dispatch(setUsers(data.items));
-  dispatch(setTotalCount(data.totalCount));
-  dispatch(setPage(page));
-  dispatch(setIsFetching(false));
-};
-export const follow = (id) => async (dispatch) => {
+export const getUsers =
+  (count: number, page: number) => async (dispatch: any) => {
+    dispatch(setIsFetching(true));
+    const data = await usersAPI.getUsers(count, page);
+    dispatch(setUsers(data.items));
+    dispatch(setTotalCount(data.totalCount));
+    dispatch(setPage(page));
+    dispatch(setIsFetching(false));
+  };
+export const follow = (id: number) => async (dispatch: any) => {
   dispatch(addInProcess(id));
   const data = await usersAPI.follow(id);
   if (data.resultCode == 0) {
@@ -123,7 +132,7 @@ export const follow = (id) => async (dispatch) => {
     dispatch(deleteInProcess(id));
   }
 };
-export const unfollow = (id) => async (dispatch) => {
+export const unfollow = (id: number) => async (dispatch: any) => {
   dispatch(addInProcess(id));
   const data = await usersAPI.unfollow(id);
   if (data.resultCode == 0) {
@@ -133,67 +142,111 @@ export const unfollow = (id) => async (dispatch) => {
 };
 
 //Action creators
-export const addInProcess = (id) => {
+type AddInProcessActionType = {
+  type: typeof ADD_IN_PROCESS;
+  id: number;
+};
+export const addInProcess = (id: number): AddInProcessActionType => {
   return {
     type: ADD_IN_PROCESS,
     id,
   };
 };
-export const deleteInProcess = (id) => {
+type DeleteInProcessActionType = {
+  type: typeof DELETE_IN_PROCESS;
+  id: number;
+};
+export const deleteInProcess = (id: number): DeleteInProcessActionType => {
   return {
     type: DELETE_IN_PROCESS,
     id,
   };
 };
-export const setIsFetching = (isFetching) => {
+type SetIsFetchingType = {
+  type: typeof SET_IS_FETCHING;
+  isFetching: boolean;
+};
+export const setIsFetching = (isFetching: boolean): SetIsFetchingType => {
   return {
     type: SET_IS_FETCHING,
     isFetching,
   };
 };
-export const setPageCount = (pageCount) => {
+type SetPageCountActionType = {
+  type: typeof SET_PAGE_COUNT;
+  pageCount: number;
+};
+export const setPageCount = (pageCount: number): SetPageCountActionType => {
   return {
     type: SET_PAGE_COUNT,
     pageCount,
   };
 };
-export const setPagePage = (pagePage) => {
+type SetPagePageActionType = {
+  type: typeof SET_PAGE_PAGE;
+  pagePage: number;
+};
+export const setPagePage = (pagePage: number): SetPagePageActionType => {
   return {
     type: SET_PAGE_PAGE,
     pagePage,
   };
 };
-export const setCount = (count) => {
+type SetCountActionType = {
+  type: typeof SET_COUNT;
+  count: number;
+};
+export const setCount = (count: number): SetCountActionType => {
   return {
     type: SET_COUNT,
     count,
   };
 };
-export const setPage = (page) => {
+type SetPageActionType = {
+  type: typeof SET_PAGE;
+  page: number;
+};
+export const setPage = (page: number): SetPageActionType => {
   return {
     type: SET_PAGE,
     page,
   };
 };
-export const setTotalCount = (totalCount) => {
+type SetTotalCountActionType = {
+  type: typeof SET_TOTAL_COUNT;
+  totalCount: number;
+};
+export const setTotalCount = (totalCount: number): SetTotalCountActionType => {
   return {
     type: SET_TOTAL_COUNT,
     totalCount,
   };
 };
-export const followSuccess = (id) => {
+type FollofSuccessActionType = {
+  type: typeof FOLLOW;
+  id: number;
+};
+export const followSuccess = (id: number): FollofSuccessActionType => {
   return {
     type: FOLLOW,
     id: id,
   };
 };
-export const unfollowSuccess = (id) => {
+type UnfollowSuccesActionType = {
+  type: typeof UNFOLLOW;
+  id: number;
+};
+export const unfollowSuccess = (id: number): UnfollowSuccesActionType => {
   return {
     type: UNFOLLOW,
     id: id,
   };
 };
-export const setUsers = (users) => {
+type SetUsersActionType = {
+  type: typeof SET_USERS;
+  users: Array<UserType>;
+};
+export const setUsers = (users: Array<UserType>): SetUsersActionType => {
   return {
     type: SET_USERS,
     users: users,
